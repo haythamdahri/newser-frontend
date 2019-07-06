@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-list',
-  templateUrl: 'list.page.html',
-  styleUrls: ['list.page.scss']
+  templateUrl: 'contact.page.html',
+  styleUrls: ['contact.page.css']
 })
-export class ListPage implements OnInit {
+export class ContactPage implements OnInit {
   private selectedItem: any;
   private icons = [
     'flask',
@@ -34,6 +34,6 @@ export class ListPage implements OnInit {
   }
   // add back when alpha.4 is out
   // navigate(item) {
-  //   this.router.navigate(['/list', JSON.stringify(item)]);
+  //   this.router.navigate(['/contact', JSON.stringify(item)]);
   // }
 }

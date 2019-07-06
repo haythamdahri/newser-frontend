@@ -1,0 +1,1 @@
+## Newser Ionic application

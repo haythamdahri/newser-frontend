@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Contact
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <form >
+        <ion-list lines="full" class="ion-no-margin ion-no-padding">
+            <ion-item>
+                <ion-label position="stacked">Full Name <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input required type="text" [classList]="['is-invalid']" class="dan"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
+                <ion-input required type="email" ></ion-input>
+            </ion-item>
+
+
+            <ion-item>
+                <ion-label position="stacked">Message</ion-label>
+                <ion-textarea></ion-textarea>
+            </ion-item>
+        </ion-list>
+
+        <div class="ion-padding">
+            <ion-button expand="block" type="submit" class="ion-no-margin">
+                <ion-icon name="send"></ion-icon>Send
+            </ion-button>
+        </div>
+    </form>
+
+</ion-content>
