@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
+import {Message} from '../models/message.model';
 
 @Component({
   selector: 'app-list',
@@ -6,34 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['contact.page.css']
 })
 export class ContactPage implements OnInit {
-  private selectedItem: any;
-  private icons = [
-    'flask',
-    'wifi',
-    'beer',
-    'football',
-    'basketball',
-    'paper-plane',
-    'american-football',
-    'boat',
-    'bluetooth',
-    'build'
-  ];
-  public items: Array<{ title: string; note: string; icon: string }> = [];
+
+  @ViewChild('sendMessageForm') form: NgForm;
+  message = new Message();
+
+  isSubmitted = false;
+  isSending = false;
+
   constructor() {
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
   }
 
   ngOnInit() {
   }
-  // add back when alpha.4 is out
-  // navigate(item) {
-  //   this.router.navigate(['/contact', JSON.stringify(item)]);
-  // }
+
+  sendMessage() {
+
+  }
 }
