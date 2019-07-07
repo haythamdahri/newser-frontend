@@ -41,7 +41,8 @@ export class NewsService {
     }
 
     sendMessage(message: Message) {
-        return this.http.post(this.constantsService.MESSAGES_V1_API, {message: message}).pipe(
+        console.log(message);
+        return this.http.post(this.constantsService.MESSAGES_V1_API, message).pipe(
             map((response: HttpResponse<Message>) => {
                     console.log(response);
                     return true;
