@@ -37,17 +37,16 @@
 
         <ion-card-content>
             {{ article.description }}
-            <ion-item-divider>
-                <ion-label text-center> Content
-                </ion-label>
-            </ion-item-divider>
 
-            {{ article.content }}
+            <ion-text color="primary">
+                <h2>Content</h2>
+            </ion-text>
+            <p>{{ article.content }}</p>
         </ion-card-content>
     </ion-card>
 
     <!-- Skeleton screen -->
-    <div *ngIf="!articles && articles != null">
+    <div *ngIf="loading">
         <div class="ion-padding custom-skeleton">
             <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
             <ion-skeleton-text animated></ion-skeleton-text>

@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {Message} from '../models/message.model';
 import {AlertController} from '@ionic/angular';
 import {NewsService} from '../shared/news.service';
+import {Title} from "@angular/platform-browser";
 
 
 declare var $: any;
@@ -21,7 +22,8 @@ export class ContactPage implements OnInit {
     errorSubmission = false;
     sending = false;
 
-    constructor(private alertController: AlertController, private newsService: NewsService) {
+    constructor(private alertController: AlertController, private newsService: NewsService,
+                private title: Title) {
     }
 
     async presentAlert() {
@@ -36,6 +38,7 @@ export class ContactPage implements OnInit {
     }
 
     ngOnInit() {
+        this.title.setTitle('Contact');
     }
 
     sendMessage() {

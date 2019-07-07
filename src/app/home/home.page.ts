@@ -4,6 +4,7 @@ import {Article} from '../models/article.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {ToastController} from '@ionic/angular';
+import {Title} from "@angular/platform-browser";
 
 @Component({
     selector: 'app-home',
@@ -13,14 +14,16 @@ import {ToastController} from '@ionic/angular';
 export class HomePage implements OnInit {
 
     articles: Array<Article> = new Array();
+    loading = true;
     totalElements: number;
     private status: string;
 
     constructor(private newsService: NewsService, private router: Router,
-                public toastController: ToastController) {
+                public toastController: ToastController, private title: Title) {
     }
 
     ngOnInit(): void {
+        this.title.setTitle('Home');
         this.newsService.getArticles().subscribe((data: object) => {
                 this.status = data['status'];
                 this.totalElements = data['totalElements'];
@@ -30,6 +33,10 @@ export class HomePage implements OnInit {
                 this.articles = null;
                 this.totalElements = 0;
                 this.status = 'bad';
+                this.loading = false;
+            },
+            () => {
+                this.loading = false;
             });
     }
 

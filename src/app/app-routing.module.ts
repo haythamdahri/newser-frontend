@@ -21,7 +21,20 @@ const routes: Routes = [
         },
         {
             path: 'posts',
-            loadChildren: './posts/posts.module#PostsPageModule'
+            children: [
+                {
+                    path: '',
+                    loadChildren: './posts/posts.module#PostsPageModule',
+                },
+                {
+                    path: 'save',
+                    loadChildren: './post-edit/post-edit.module#PostEditPageModule'
+                },
+                {
+                    path: 'save/:id',
+                    loadChildren: './post-edit/post-edit.module#PostEditPageModule'
+                }
+            ]
         }
     ]
 ;

@@ -1,5 +1,7 @@
 {
   "name": "newser",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -13,6 +13,15 @@
 
     <ion-progress-bar *ngIf="sending" type="indeterminate" reversed="true"></ion-progress-bar>
 
+    <ion-list *ngIf="errorSubmission && !sending && !submitted">
+        <ion-item color="danger">
+            <ion-label>
+                <ion-icon name="sad"></ion-icon>
+                An error occurred, please try again!
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
     <form *ngIf="!submitted" #sendMessageForm="ngForm" (ngSubmit)="sendMessage()">
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
             <ion-item>
@@ -63,15 +72,6 @@
             </ion-card-content>
         </ion-card>
 
-    </ion-list>
-
-    <ion-list *ngIf="errorSubmission">
-        <ion-item color="danger">
-            <ion-label>
-                <ion-icon name="sad"></ion-icon>
-                An error occurred, please try again!
-            </ion-label>
-        </ion-item>
     </ion-list>
 
 

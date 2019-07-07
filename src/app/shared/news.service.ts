@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpEventType, HttpParams, HttpResponse} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {catchError, map} from 'rxjs/operators';
-import {Article} from '../models/article.model';
 import {throwError} from 'rxjs';
 import {ConstantsService} from './constants.service';
 import {Message} from '../models/message.model';
@@ -18,8 +17,7 @@ export class NewsService {
 
     getArticles() {
         return this.http.get(this.constantsService.ARTICLES_API, {params: new HttpParams().append('country', 'us').append('apiKey', environment.newsApiKey)}).pipe(
-            map((data: Array<Article>) => {
-                    console.log(data);
+            map((data: any) => {
                     return {status: data['status'], totalResults: data['totalResults'], articles: data['articles']};
                 },
                 catchError(error => {
@@ -28,11 +26,21 @@ export class NewsService {
         );
     }
 
+    getPost(id: number) {
+        return this.http.get(this.constantsService.POSTS_V1_API + "/" + id).pipe(
+            map((data: Post) => {
+                    return {post: data};
+                },
+                catchError(error => {
+                    return throwError(error);
+                }))
+        );
+    }
+
     getPosts() {
-        return this.http.get(this.constantsService.MESSAGES_V1_API).pipe(
-            map((response: HttpResponse<Array<Post>>) => {
-                    console.log(response);
-                    return {posts: response};
+        return this.http.get(this.constantsService.POSTS_V1_API).pipe(
+            map((data: Array<Post>) => {
+                    return {posts: data};
                 },
                 catchError(error => {
                     return throwError(error);
@@ -44,7 +52,6 @@ export class NewsService {
         console.log(message);
         return this.http.post(this.constantsService.MESSAGES_V1_API, message).pipe(
             map((response: HttpResponse<Message>) => {
-                    console.log(response);
                     return true;
                 },
                 catchError(error => {
@@ -52,5 +59,39 @@ export class NewsService {
                 }))
         );
     }
+
+    uploadPostImage(formData: FormData) {
+        return this.http.post(this.constantsService.POSTS_IMAGES_UPLOAD_V1_API, formData, {
+            observe: "events",
+            reportProgress: true
+        }).pipe(
+            map((event) => {
+                switch (event.type) {
+                    case HttpEventType.UploadProgress:
+                        const progress = Math.round(100 * event.loaded / event.total);
+                        return {status: 'progress', message: progress};
+
+                    case HttpEventType.Response:
+                        return event.body;
+                    default:
+                        return `Unhandled event: ${event.type}`;
+                }
+            }),
+            catchError(error => {
+                return throwError(error);
+            }));
+    }
+
+    savePost(post: Post) {
+        return this.http.post(this.constantsService.MESSAGES_V1_API, post).pipe(
+            map((response: HttpResponse<Post>) => {
+                    return true;
+                },
+                catchError(error => {
+                    return throwError(error);
+                }))
+        );
+    }
+
 
 }

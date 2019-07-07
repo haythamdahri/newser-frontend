@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Post Form</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-progress-bar *ngIf="loading" type="indeterminate" reversed="true"></ion-progress-bar>
+
+  <ion-list *ngIf="errorSubmission && !loading && !submitted">
+    <ion-item color="danger">
+      <ion-label>
+        <ion-icon name="sad"></ion-icon>
+        An error occurred, please try again!
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <form *ngIf="!submitted" #savePostForm="ngForm" (ngSubmit)="savePost()">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="stacked">Title
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input name="title" [(ngModel)]="post.title" required type="text"
+                   [classList]="['is-invalid']" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Image
+          <ion-text color="danger">*</ion-text>
+        </ion-label>
+        <ion-input expand="full" name="image" [(ngModel)]="post.image" required type="file"></ion-input>
+      </ion-item>
+
+      <ion-progress-bar [value]="progressPercent"></ion-progress-bar>
+
+      <ion-item>
+        <ion-label position="stacked">Content</ion-label>
+        <ion-textarea name="content" [(ngModel)]="post.content" required></ion-textarea>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button id="submit-btn" expand="block" type="submit" class="ion-no-margin">
+        <ion-icon name="save"></ion-icon> Save
+      </ion-button>
+    </div>
+  </form>
+
+</ion-content>
